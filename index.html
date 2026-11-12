@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHIRITORU | Welcome</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px;
+    min-height: 100vh;
+    background: #0c0c0c;
+    color: #cccccc;
+    font-family: Consolas, "Courier New", monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 600px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.output {
+    margin-bottom: 24px;
+}
+
+.muted {
+    color: #777777;
+}
+
+.command-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.prompt {
+    white-space: nowrap;
+}
+
+input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #cccccc;
+    font: inherit;
+    caret-color: #cccccc;
+    padding: 0;
+}
+
+.mobile-enter {
+    display: none;
+    margin-top: 20px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #cccccc;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.mobile-enter:active {
+    color: white;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 24px;
+    }
+
+    .terminal {
+        font-size: 13px;
+    }
+
+    .command-line {
+        display: none;
+    }
+
+    .mobile-enter {
+        display: block;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="terminal">
+
+    <div class="output" id="initialOutput">
+        <div>SHIRITORU'S HOMEPAGE</div>
+        <div class="muted">----------------------------------------</div>
+        <br>
+
+        <div>Welcome to my homepage.</div>
+        <br>
+
+        <div class="muted">Available commands:</div>
+        <div>  enter   - Enter homepage</div>
+        <div>  help    - Show commands</div>
+        <div>  clear   - Clear screen</div>
+
+        <br>
+        <div class="muted">----------------------------------------</div>
+    </div>
+
+    <!-- PC用 -->
+    <form id="terminalForm" class="command-line">
+        <span class="prompt">C:\SHIRITORU&gt;</span>
+        <input
+            type="text"
+            id="command"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Command"
+        >
+    </form>
+
+    <!-- スマホ用 -->
+    <button
+        type="button"
+        class="mobile-enter"
+        id="mobileEnter"
+    >
+        C:\SHIRITORU&gt; [ ENTER ]
+    </button>
+
+    <div id="response" class="output"></div>
+
+</main>
+
+<script>
+const form = document.getElementById("terminalForm");
+const input = document.getElementById("command");
+const response = document.getElementById("response");
+const mobileEnter = document.getElementById("mobileEnter");
+
+function isMobile() {
+    return window.matchMedia("(max-width: 600px)").matches;
+}
+
+function enterHomepage() {
+    response.textContent = "Opening homepage...";
+    setTimeout(() => {
+        location.href = "home.html";
+    }, 400);
+}
+
+function executeCommand(command) {
+    command = command.trim().toLowerCase();
+
+    if (!command) return;
+
+    response.innerHTML = "";
+
+    if (command === "enter") {
+        enterHomepage();
+    }
+
+    else if (command === "help") {
+        response.innerHTML =
+            "Available commands:<br>" +
+            "  enter   - Enter homepage<br>" +
+            "  help    - Show commands<br>" +
+            "  clear   - Clear screen";
+    }
+
+    else if (command === "clear") {
+        document.getElementById("initialOutput").style.display = "none";
+        response.innerHTML = "";
+    }
+
+    else {
+        response.textContent =
+            "'" + command + "' is not recognized as a command.";
+    }
+}
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    executeCommand(input.value);
+    input.value = "";
+});
+
+mobileEnter.addEventListener("click", function() {
+    enterHomepage();
+});
+
+// PCでのみ入力欄にフォーカス
+if (!isMobile()) {
+    input.focus();
+}
+</script>
+
+</body>
+</html>
