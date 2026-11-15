@@ -1,0 +1,5 @@
+Options -Indexes
+
+# 画像20MBまで受け付けるための設定。500エラーになる場合はこの2行を削除してください。
+php_value upload_max_filesize 20M
+php_value post_max_size 21M

@@ -1,0 +1,1 @@
+<?php echo password_hash('tematematemari', PASSWORD_DEFAULT);
