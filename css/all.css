@@ -1,0 +1,5 @@
+/* サイドバー用のマージン(BBSではこの要素を使わないこと) */
+body {
+  margin-top: 15px;  
+  margin-left: 60px;
+} 
