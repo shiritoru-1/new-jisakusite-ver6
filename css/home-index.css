@@ -5,3 +5,72 @@
   gap: 10px;     /* 要素同士のすき間（任意） */
 }
 
+/*　メイン画面の画像 */
+
+
+.main-visual {
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.main-visual picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.main-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ながれるもじ */
+
+/* しりとる 流れる帯（モノトーン） */
+.shiritoru-marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #ffffff;
+  color: #000000;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  line-height: 1.6;
+  padding: 0.2rem 0;
+  box-sizing: border-box;
+}
+
+.shiritoru-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: shiritoru-scroll 15s linear infinite;
+}
+
+.shiritoru-marquee__group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.shiritoru-marquee__group span {
+  padding-right: 2em;
+}
+
+@keyframes shiritoru-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiritoru-marquee__track {
+    animation: none;
+  }
+}
